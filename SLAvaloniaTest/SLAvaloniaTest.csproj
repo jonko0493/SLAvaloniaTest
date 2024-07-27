@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <Configurations>Debug;Release</Configurations>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.1.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0" />
+    
+    <PackageReference Include="NAudio.Core" Version="2.2.1" />
+  </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows'">
+        <PackageReference Include="NAudio" Version="2.2.1" />        
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' != 'net8.0-windows'">
+        <PackageReference Include="OpenTK" Version="4.8.2" />
+    </ItemGroup>
+</Project>
